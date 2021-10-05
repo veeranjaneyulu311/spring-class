@@ -1,7 +1,11 @@
 package com.veer.practice.dao;
 
-import com.veer.practice.dto.EmployeeDto;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface EmployeeDao {
-	EmployeeDto saveEmployee(EmployeeDto employeeDto);
+import com.veer.practice.domain.Employee;
+
+public interface EmployeeDao extends JpaRepository<Employee, String> {
+
+	Employee getByFirstName(Employee employee);
+
 }

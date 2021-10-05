@@ -1,7 +1,10 @@
 package com.veer.practice.service;
 
+import com.veer.practice.domain.Employee;
 import com.veer.practice.dto.EmployeeDto;
 
 public interface EmployeeService {
-	EmployeeDto saveEmployee(EmployeeDto employeeDto);
+	Employee saveEmployee(EmployeeDto employeeDto);
+	Employee getEmployeeById(String empId);
+	void deleteEmployeeById(String empId);
 }

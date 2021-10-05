@@ -1,5 +1,7 @@
 package com.veer.practice.controller;
 
+import static com.veer.practice.util.ResponseUtil.createSuccessResponse;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -13,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.veer.practice.domain.Employee;
 import com.veer.practice.dto.EmployeeDto;
 import com.veer.practice.dto.GenericResponse;
 import com.veer.practice.service.EmployeeService;
-import static com.veer.practice.util.ResponseUtil.createSuccessResponse;
 
 @RestController
 @RequestMapping("/v1")
@@ -31,19 +33,19 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/save-employee")
-	public ResponseEntity<GenericResponse<EmployeeDto>> saveEmployee(@RequestBody @Valid EmployeeDto employeeDto) {
+	public ResponseEntity<GenericResponse<Employee>> saveEmployee(@RequestBody @Valid EmployeeDto employeeDto) {
 		return createSuccessResponse(employeeService.saveEmployee(employeeDto));
 	}
 
 	@GetMapping("/fetch-employee")
-	public ResponseEntity<GenericResponse<EmployeeDto>> getEmployeeById(@RequestParam(required = false) String empId) {
-		EmployeeDto employee = employeeService.saveEmployee(null);
-		employee.setEmpId(empId);
+	public ResponseEntity<GenericResponse<Employee>> getEmployeeById(@RequestParam String empId) {
+		Employee employee = employeeService.getEmployeeById(empId);
 		return createSuccessResponse(employee);
 	}
 
 	@DeleteMapping("/delete-employee")
 	public ResponseEntity<GenericResponse<String>> deleteEmployeeById(@RequestParam String empId) {
+		employeeService.deleteEmployeeById(empId);
 		return createSuccessResponse("Delete Success");
 	}
 
